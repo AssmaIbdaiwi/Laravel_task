@@ -1,10 +1,11 @@
 <?php
-
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\userscontroller;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\userscontroller;
-
-
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\FileUploadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,24 @@ Route::get('/calculatortask', function () {
 });
 
 Route::get('calculator',[CalculatorController::class,'add']);
-// Route::get('calculator',[CalculatorController::class,'sub']);
-// 
-// Route::post('/calculate', 'CalculatorController@add');
+
+// Route::get('/registration', function () {
+//     return view('registration.registration');
+// });
+// Route::get('/viewuser', function () {
+//     return view('registration.viewuser');
+// });
+Route::resource('registration', RegistrationController::class);
+
+
+///
+Route::get('student/create', 'StudentController@create')->name('student.create');
+Route::get('student/{student}', 'StudentController@show')->name('student.show');
+
+Route::get('file-upload', [FileUploadController::class, 'index']);
+Route::post('store', [FileUploadController::class, 'store']);
+
+
+Route::resource('movies', MovieController::class);
+
+// Route::post('store', [MovieController::class, 'store']);
